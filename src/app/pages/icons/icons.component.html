@@ -1,0 +1,24 @@
+
+<div class=" content">
+  <div class=" row">
+    <div class=" col-md-12">
+      <table class="table table-hover">
+        <thead>
+        <tr>
+          <th>ID</th>
+          <th>delete</th>
+        </tr>
+        </thead>
+        <tbody *ngFor="let trip of listTrip ">
+        <tr>
+          
+          <td><h3 style="color: white;">{{trip.id}}</h3></td>
+          <td><button class="btn btn-danger" (click)="deleteTrip(trip)">Delete</button></td>
+          
+           <!-- <td><button (click)="d(product.id)">Delete</button></td> -->
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
