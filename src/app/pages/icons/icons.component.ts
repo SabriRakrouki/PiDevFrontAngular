@@ -11,21 +11,21 @@ export class IconsComponent implements OnInit {
   trip!:Trip;
   closeResult!:string;
     constructor(private tripservice:TripService) { }
-  
+
     ngOnInit(): void {
       this.trip={
         id:null,
         arrivalDate:null,
         attribution:null,
-        compteur:null,
+        compteur:0,
         departDate:null,
         description:null,
         employee:null,
         entreprise:null,
-        note:null,
+        note:0,
         programs:null,
-        rating:null,
-        totalattribution:null,
+        rating:0,
+        totalattribution:0,
         tripLocation:null
       }
   this.getAllTrips()  
@@ -36,7 +36,7 @@ export class IconsComponent implements OnInit {
       console.log(this.listTrip)}
       );   
   }
-  addTrip(trip:any){
+  addTrip(trip:Trip){
     this.tripservice.addTrip(trip).subscribe(()=>{
       this.getAllTrips();
       this.from=false;
