@@ -1,67 +1,160 @@
-
 <div class=" content">
     <div class=" row">
-      <div class=" col-md-12">
-        <table class="table table-hover">
-          <thead>
-          <tr>
-            <th>ID</th>
-            <th>delete</th>
-          </tr>
-          </thead>
-          <tbody *ngFor="let trip of listTrip ">
-          <tr>
-            
-            <td><h3 style="color: white;">{{trip.id}}</h3></td>
-            <td><button class="btn btn-danger" (click)="deleteTrip(trip)">Delete</button></td>
-            
-             <!-- <td><button (click)="d(product.id)">Delete</button></td> -->
-          </tr>
-          </tbody>
-        </table>
-        <button class="btn btn-lg btn-outline-primary" (click)="open(mymodal)">test modal</button>
-        <ng-template #mymodal let-modal>
+        <div class=" col-md-12">
+            <div class="row">
+                <div class="col-md-8">
 
-            
-                     <div class="modal-header">
-                        <h5 class="modal-title" id="addEmployeeModalLabel">Add Employee</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <input type="text" [(ngModel)]="search" name="search" placeholder="Search" />
+
+                </div>
+                <div class="col-md-8"></div>
+                <div class="col-md-4"><button class="btn btn-primary" (click)="open(mymodal)">Create Trip</button></div>
+            </div>
+
+
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>TRIP LOCATION</th>
+                        <th>DESCRIPTION</th>
+                        <th>PROGRAMS</th>
+                        <th>ENTREPRISE</th>
+                        <th>EMPLOYEE</th>
+                        <th>DEPART DATE</th>
+                        <th>ARRIVAL DATE</th>
+                        <th>ATTRIBUTION</th>
+                        <th>TOTAL ATTRIBUTION</th>
+                        <th>COMPTEUR</th>
+                        <th>NOTE</th>
+                        <th>RATING</th>
+                        <th>delete</th>
+                    </tr>
+                </thead>
+                <tbody *ngFor="let trip of trips |filter:search|paginate:{
+                    itemsPerPage: tableSize,
+                    currentPage: page,
+                    totalItems: count}; let i = index">
+                    <tr>
+
+                        <td>
+                            <h3 style="color: white;">{{trip.id}}</h3>
+                        </td>
+                        <td>
+                            <h3 style="color: white;">{{trip.tripLocation}}</h3>
+                        </td>
+                        <td>
+                            <h3 style="color: white;">{{trip.description}}</h3>
+                        </td>
+                        <td>
+                            <h3 style="color: white;">{{trip.programs}}</h3>
+                        </td>
+                        <td>
+                            <h3 style="color: white;">{{trip.entreprise}}</h3>
+                        </td>
+                        <td>
+                            <h3 style="color: white;">{{trip.employee}}</h3>
+                        </td>
+                        <td data-type="date" data-format-string="Do MMMM YYYY">{{trip.departDate}}
+                        </td>
+
+                        <td>
+                            <h3 style="color: white;">{{trip.arrivalDate}}</h3>
+                        </td>
+                        <td>
+                            <h3 style="color: white;">{{trip.attribution}}</h3>
+                        </td>
+                        <td>
+                            <h3 style="color: white;">{{trip.totalattribution}}</h3>
+                        </td>
+                        <td>
+                            <h3 style="color: white;">{{trip.compteur}}</h3>
+                        </td>
+                        <td>
+                            <h3 style="color: white;">{{trip.note}}</h3>
+                        </td>
+                        <td>
+                            <h3 style="color: white;">{{trip.rating}}</h3>
+                        </td>
+                        <td><button class="btn btn-danger" (click)="deleteTrip(trip)">Delete</button></td>
+
+                        <!-- <td><button (click)="d(product.id)">Delete</button></td> -->
+                    </tr>
+                </tbody>
+
+            </table>
+            <div>
+                <pagination-controls previousLabel="Prev" nextLabel="Next" (pageChange)="onTableDataChange($event)">
+                </pagination-controls>
+            </div>
+
+            <ng-template #mymodal let-modal>
+
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addEmployeeModalLabel">Add Employee</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
-                        </button>
-                     </div>
-                     <div class="modal-body">
-                        <form #addForm="ngForm" (ngSubmit)="onAddEmloyee(addForm)">
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form #addForm="ngForm" (ngSubmit)="addTrip(addForm)">
                         <div class="form-group">
-                           <label for="name">Name</label>
-                           <input type="text" ngModel name="name" class="form-control" id="name" placeholder="Name" required>
+                            <label for="name">LOCATION</label>
+                        <div class="row">
+                            <div class="col">
+                                <label>Contry:&nbsp; </label>
+                                <select></select>
+                            </div>
+                            <div class="col">
+                                <label>State: &nbsp;</label>
+                                <select></select></div>
+                            <div class="col">
+                                <label>City: &nbsp;</label>
+                                <select></select></div>
+
+                        </div>
                         </div>
                         <div class="form-group">
-                           <label for="email">Email Address</label>
-                           <input type="email" ngModel name="email" class="form-control" id="email" placeholder="Email" required>
+                            <label for="departDate">Depart Date</label>
+                            <input type="Date" ngModel name="departDate" class="form-control" id="email" placeholder="Email"
+                                required>
                         </div>
                         <div class="form-group">
-                           <label for="phone">Job title</label>
-                           <input type="text" ngModel name="jobTitle" class="form-control" id="jobTile" placeholder="Job title" required>
+                            <label for="arrivalDate">Arrival Date</label>
+                            <input type="date" ngModel name="arrivalDate" class="form-control" id="jobTile"
+                                placeholder="Job title" required>
                         </div>
                         <div class="form-group">
-                           <label for="phone">Phone</label>
-                           <input type="text" ngModel name="phone" class="form-control" id="phone" placeholder="Phone" required>
+                          <div class="row">
+                              <div class="col">
+                                  <label>Employee List :&nbsp;&nbsp;</label>
+                                  <select></select>
+                              </div>
+                          </div>
                         </div>
                         <div class="form-group">
-                           <label for="phone">Description</label>
-                           <textarea  class="form-control" ></textarea>
+                            <div class="col-md-12">
+                            <label for="phone">Description</label>
+
+                            </div>
+                            <div class="col-md-12">
+                                <textarea  ngModel name="description"  class="form-control" style="border: 2px  solid black; width: 100%;"></textarea>
+
+                            </div>
                         </div>
                         <div class="modal-footer">
-                           <button type="button" id="add-employee-form" class="btn btn-secondary" (click)="modal.close('Save click')">Close</button>
-                           <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary" >Save changes</button>
+                            <button type="button" id="add-employee-form" class="btn btn-secondary"
+                                (click)="modal.close('Save click')">Close</button>
+                            <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary">Save
+                                changes</button>
                         </div>
-                        </form>
-                     </div>
-                  
-            
-                
-          </ng-template>
-      </div>
+                    </form>
+                </div>
+
+
+
+            </ng-template>
+        </div>
     </div>
-  </div>
-  
+</div>

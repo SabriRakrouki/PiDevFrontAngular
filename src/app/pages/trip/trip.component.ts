@@ -1,26 +1,38 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Trip } from 'src/app/model/trip';
 import { TripService } from 'src/app/services/trip.service';
 import {NgbModal, ModalDismissReasons, NgbModalOptions} from '@ng-bootstrap/ng-bootstrap';
+import { NgForm } from '@angular/forms';
+import { LocationService } from 'src/app/services/location.service';
+
 @Component({
   selector: 'app-trip',
   templateUrl: './trip.component.html',
   styleUrls: ['./trip.component.scss']
 })
 export class TripComponent implements OnInit {
-
+ 
   listTrip!:Trip[];
+  ListLocation:Location[];
   from:boolean=false;
   trip!:Trip;
+  //pagination
+  trips: any;
+  page : number =1;
+  count: number =0;
+  tableSize: number = 5;
+  tableSizes: any = [5, 10, 15, 20];
   closeResult!:string;
   modalOptions:NgbModalOptions;
-    constructor(private tripservice:TripService, private modalService: NgbModal) {  this.modalOptions = {
+  //pagination
+  //recherche
+  search:string;
+    constructor(private tripservice:TripService, private modalService: NgbModal,private locationservice:LocationService) {  this.modalOptions = {
       backdrop:'static',
       backdropClass:'customBackdrop',
       size:'lg'
-      
+
     }}
-  
     ngOnInit(): void {
       this.trip={
         id:null,
@@ -37,16 +49,20 @@ export class TripComponent implements OnInit {
         totalattribution:0,
         tripLocation:null
       }
-  this.getAllTrips()  
+  this.getAllTrips();
+  this.locationservice.getAllCounrties().subscribe((res)=>this.ListLocation.push());
+  
     }
   public getAllTrips(){
     this.tripservice.getAllTrips().subscribe(
-      (data:Trip[])=>{this.listTrip=data
-      console.log(this.listTrip)}
+      ((response)=>{
+        this.trips = response;
+        console.log(this.trips);
+      })
       );   
   }
-  addTrip(trip:Trip){
-    this.tripservice.addTrip(trip).subscribe(()=>{
+  addTrip(addForm:NgForm){
+    this.tripservice.addTrip(addForm.value).subscribe(()=>{
       this.getAllTrips();
       this.from=false;
     });
@@ -79,6 +95,27 @@ export class TripComponent implements OnInit {
     } else {
       return  `with: ${reason}`;
     }
+  }
+  //pagination
+  onTableDataChange(event: any){
+    this.page = event;
+    this.getAllTrips();
+  }
+  onTableSizeChange(event: any):void{
+    this.tableSize = event.target.value;
+    this.page = 1;
+    this.getAllTrips();
+  }
+  //recherche
+  Search(){
+    if(this.search !=""){
+    this.trips = this.trips.filter(res=>{
+      return res.description.toLocaleLowerCase().
+      match(this.search.toLocaleLowerCase()) ; 
+    });
+  }else if(this.search ==""){
+    this.getAllTrips();
+  }
   }
 }
 
