@@ -17,6 +17,7 @@ import { AddComponent } from './pages/trip/add/add.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 //recherche
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { DomainComponent } from './pages/domain/domain.component';
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -32,7 +33,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     Ng2SearchPipeModule,
     ToastrModule.forRoot()
   ],
-  declarations: [AppComponent, AdminLayoutComponent, AuthLayoutComponent, TripComponent, AddComponent],
+  declarations: [AppComponent, AdminLayoutComponent, AuthLayoutComponent, TripComponent, AddComponent, DomainComponent],
   providers: [],
   bootstrap: [AppComponent]
 })

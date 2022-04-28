@@ -1,0 +1,74 @@
+<div class=" content">
+    <div class=" row">
+        <div class=" col-md-12">
+            <div class="row">
+                <div class="col-md-8">
+                </div>
+                <div class="col-md-8"></div>
+                <div class="col-md-4"><button class="btn btn-primary" (click)="open(mymodal)">Create Domain</button>
+                </div>
+            </div>
+
+
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>DOMAIN NAME</th>
+
+                    </tr>
+                </thead>
+                <tbody *ngFor="let domain of listDomain">
+                    <tr>
+
+                        <td>
+                            <h3 style="color: white;">{{domain.id}}</h3>
+                        </td>
+                        <td>
+                            <h3 style="color: white;">{{domain.nameDomain}}</h3>
+                        </td>
+                        <td>
+
+                        <td><button class="btn btn-danger" (click)="deleteDomain(domain)">Delete</button></td>
+
+                        <!-- <td><button (click)="d(product.id)">Delete</button></td> -->
+                    </tr>
+                </tbody>
+
+            </table>
+
+
+            <ng-template #mymodal let-modal>
+
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addDomain">Add Domain</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <form #addForm="ngForm" (ngSubmit)="addDomain(addForm)">
+                        
+                        <div class="form-group">
+                            <label for="nameDomain">Depart Date</label>
+                            <input type="text" ngModel name="nameDomain" class="form-control" id="domain" placeholder="Domain Name"
+                                required/>
+                        </div>
+                       
+                        
+                      
+                        <div class="modal-footer">
+                            <button type="button" id="add-employee-form" class="btn btn-secondary"
+                                (click)="modal.close('Save click')">Close</button>
+                            <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary">Save
+                                changes</button>
+                        </div>
+                    </form>
+                </div>
+
+        </ng-template>
+    </div>
+</div>
+</div>

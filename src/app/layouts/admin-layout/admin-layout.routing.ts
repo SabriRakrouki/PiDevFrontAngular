@@ -9,6 +9,7 @@ import { TablesComponent } from "../../pages/tables/tables.component";
 import { TypographyComponent } from "../../pages/typography/typography.component";
 import { TripComponent } from "src/app/pages/trip/trip.component";
 import { AddComponent } from "src/app/pages/trip/add/add.component";
+import { DomainComponent } from "src/app/pages/domain/domain.component";
 // import { RtlComponent } from "../../pages/rtl/rtl.component";
 
 export const AdminLayoutRoutes: Routes = [
@@ -17,7 +18,7 @@ export const AdminLayoutRoutes: Routes = [
   { path: "maps", component: MapComponent },
   { path: "notifications", component: NotificationsComponent },
   { path: "user", component: UserComponent },
-  { path: "tables", component: TablesComponent },
+  { path: "domains", component: DomainComponent },
   { path: "typography", component: TypographyComponent },
   // { path: "rtl", component: RtlComponent }
 ];
