@@ -2,7 +2,7 @@ import { NgModule } from "@angular/core";
 import { HttpClientModule } from "@angular/common/http";
 import { RouterModule } from "@angular/router";
 import { CommonModule } from "@angular/common";
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 import { AdminLayoutRoutes } from "./admin-layout.routing";
 import { DashboardComponent } from "../../pages/dashboard/dashboard.component";
@@ -15,9 +15,14 @@ import { TypographyComponent } from "../../pages/typography/typography.component
 // import { RtlComponent } from "../../pages/rtl/rtl.component";
 
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { NgxMatSelectSearchModule } from "ngx-mat-select-search";
+import { MatSelectModule } from "@angular/material/select";
+import { DomainComponent } from "src/app/pages/domain/domain.component";
 
 @NgModule({
   imports: [
+    MatSelectModule,NgxMatSelectSearchModule,
+ReactiveFormsModule,
     CommonModule,
     RouterModule.forChild(AdminLayoutRoutes),
     FormsModule,
@@ -30,6 +35,7 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
     TablesComponent,
     IconsComponent,
     TypographyComponent,
+    DomainComponent,
     NotificationsComponent,
     MapComponent,
     // RtlComponent

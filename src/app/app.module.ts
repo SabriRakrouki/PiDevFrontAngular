@@ -18,6 +18,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
 //recherche
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { DomainComponent } from './pages/domain/domain.component';
+import { MatSelectModule } from "@angular/material/select";
+import { NgxMatSelectSearchModule } from "ngx-mat-select-search";
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -33,7 +35,7 @@ import { DomainComponent } from './pages/domain/domain.component';
     Ng2SearchPipeModule,
     ToastrModule.forRoot()
   ],
-  declarations: [AppComponent, AdminLayoutComponent, AuthLayoutComponent, TripComponent, AddComponent, DomainComponent],
+  declarations: [AppComponent, AdminLayoutComponent, AuthLayoutComponent, TripComponent, AddComponent],
   providers: [],
   bootstrap: [AppComponent]
 })
